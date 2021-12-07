@@ -32,15 +32,15 @@ $ brew install cmake
 These steps will create a deps folder in your home directory with a couple of subdirectories needed to build Skia (you can change the __$HOME/deps__ with other directory). Some of these commands will take several minutes to finish:
 
 ```console
-$ mkdir $HOME/deps
-$ cd $HOME/deps
-$ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-$ git clone -b aseprite-m81 https://github.com/aseprite/skia.git
-$ export PATH="${PWD}/depot_tools:${PATH}"
-$ cd skia
-$ python tools/git-sync-deps
-$ gn gen out/Release-x64 --args="is_debug=false is_official_build=true skia_use_system_expat=false skia_use_system_icu=false skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false skia_use_system_libwebp=false skia_use_system_zlib=false skia_use_sfntly=false skia_use_freetype=true skia_use_harfbuzz=true skia_pdf_subset_harfbuzz=true skia_use_system_freetype2=false skia_use_system_harfbuzz=false target_cpu=\"x64\" extra_cflags=[\"-stdlib=libc++\", \"-mmacosx-version-min=10.9\"] extra_cflags_cc=[\"-frtti\"]"
-$ ninja -C out/Release-x64 skia modules
+mkdir $HOME/deps
+cd $HOME/deps
+git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+git clone -b aseprite-m81 https://github.com/aseprite/skia.git
+export PATH="${PWD}/depot_tools:${PATH}"
+cd skia
+python tools/git-sync-deps
+gn gen out/Release-x64 --args="is_debug=false is_official_build=true skia_use_system_expat=false skia_use_system_icu=false skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false skia_use_system_libwebp=false skia_use_system_zlib=false skia_use_sfntly=false skia_use_freetype=true skia_use_harfbuzz=true skia_pdf_subset_harfbuzz=true skia_use_system_freetype2=false skia_use_system_harfbuzz=false target_cpu=\"x64\" extra_cflags=[\"-stdlib=libc++\", \"-mmacosx-version-min=10.9\"] extra_cflags_cc=[\"-frtti\"]"
+ninja -C out/Release-x64 skia modules
 ```
 ---
 
@@ -51,10 +51,10 @@ If you have Retina Display see the issue link on Step 5 source.
 In this case, __$HOME/deps/skia__ is the directory where Skia was compiled or downloaded. Make sure that __CMAKE_OSX_SYSROOT__ is pointing to the correct SDK directory (in this case __/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk__), but it could be different in your Mac.
 
 ```console
-$ cd aseprite
-$ mkdir build
-$ cd build
-$ cmake \
+cd aseprite
+mkdir build
+cd build
+cmake \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_OSX_ARCHITECTURES=x86_64 \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 \
@@ -65,7 +65,7 @@ $ cmake \
   -DSKIA_LIBRARY=$HOME/deps/skia/out/Release-x64/libskia.a \
   -G Ninja \
   ..
-$ ninja aseprite
+ninja aseprite
 ```
 ---
 
